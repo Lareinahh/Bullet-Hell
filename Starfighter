@@ -1,0 +1,46 @@
+class Starfighter extends GameObject {
+  int cooldown, threshold;
+  
+  Starfighter() {
+    super(width/2, height/2, 0, 0, 30, red, 3);
+    threshold = 10;
+    cooldown = threshold;
+  }
+  
+  void act() {
+    super.act();
+    
+    
+    //managing shooting
+    cooldown++;
+    if (space && cooldown >= threshold) {
+      objects.add(new Bullet());
+      cooldown = 0;
+    }
+    
+    //controling the starfighter
+    if (up) vy = -5;
+    if (down) vy = 5;
+    if (left) vx = -5;
+    if (right) vx = 5;
+    //if (space) objects.add(new Bullet());
+    
+    //decelerating when not moving
+    if (!up && !down) vy = vy * 0.9;
+    if (!left && !right) vx = vx * 0.9;
+    
+    //hard boundaries
+    if (x <= 20/2) x = 20/2;
+    if (x >= width-160/2) x = width-160/2;
+    if (y <= 20/2) y = 20/2;
+    if (y >= height-200/2) y = height-200/2;
+  }
+  
+  void show() {
+    image(starfighter, player1.x, player1.y, 80, 100);
+    
+    textSize(40);
+    fill(white);
+    text("lives: " + lives, width-width/6, 550);
+  }
+}
