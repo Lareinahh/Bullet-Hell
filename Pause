@@ -1,0 +1,9 @@
+void pause() {
+  textSize(140);
+  fill(white);
+  text("PAUSED", width/2, height/2);
+}
+
+void pauseClicks() {
+  mode = GAME;
+}
