@@ -1,0 +1,14 @@
+void win() {
+  image(gif[p], 0, 0, width, height);
+  p++;
+  if (p == F) p = 0;
+  
+  textSize(110);
+  fill(white);
+  text("YOU WON", width/2, height/2-20, 600, 600);
+}
+
+void winClicks() {
+  reset();
+  mode = INTRO;
+}
