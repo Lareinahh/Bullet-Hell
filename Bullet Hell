@@ -1,0 +1,72 @@
+import processing.javafx.*;
+
+//palette
+color dark = #000000;
+color orange = #F23A08;
+color blue = #4DFFFB;
+color yellow = #FFCD72;
+color brown = #813714;
+color red = #FF0000;
+color white = #FFFFFF;
+
+//global variables
+final int INTRO = 0;
+final int GAME = 1;
+final int PAUSE = 2;
+final int WIN = 3;
+final int LOSE = 4;
+int mode;
+
+boolean up, down, left, right, space;
+
+ArrayList<GameObject> objects;
+Starfighter player1;
+
+int score, lives, timer;
+
+//gif
+PImage[] gif;
+int F;
+int p;
+
+PImage starfighter;
+
+void setup() {
+  size(800, 600, FX2D);
+  textAlign(CENTER, CENTER);
+  rectMode(CENTER);
+  noStroke();
+  mode = INTRO;
+  
+  reset();
+  
+  objects = new ArrayList<GameObject>();
+  player1 = new Starfighter();
+  objects.add(player1);
+  
+  //initialize score
+  score = 0;
+  lives = 3;
+  timer = 50;
+  
+  //gif
+  F = 63;
+  gif = new PImage[F];
+  
+  int k = 0;
+  while(k < F) {
+    gif[k] = loadImage("frame_"+k+"_delay-0.04s.gif");
+    k++;
+  }
+  
+  starfighter = loadImage("starfighter.png");
+}
+
+void draw() {
+   if (mode == INTRO) intro();
+   else if (mode == GAME) game();
+   else if (mode == PAUSE) pause();
+   else if (mode == WIN) win();
+   else if (mode == LOSE) lose();
+   else println("Error: Mode = " + mode);
+}
