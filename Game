@@ -1,0 +1,51 @@
+void game() {
+  image(gif[p], 0, 0, width, height);
+  p++;
+  if (p == F) p = 0;
+  
+  fill(0, 100);
+  rect(width/2, height/2, width, height);
+  addObjects();
+  gameEngine();
+  //debug();
+  timer = timer - 1;
+}
+
+void addObjects() {
+  objects.add(0, new Star());
+  if (frameCount % 60 == 0) objects.add(new Enemy());
+}
+
+void gameEngine() {
+  int i = 0;
+  while (i < objects.size()) {
+    GameObject obj = objects.get(i);
+    obj.act();
+    obj.show();
+    if (obj.lives == 0) {
+      objects.remove(i);
+    } else {
+      i++;
+    }
+  }
+  
+  //scoring
+  if (score == 10) {
+    mode = WIN;
+  }
+  
+  if (lives == 0) {
+    mode = LOSE;
+  }
+}
+
+void debug() {
+  fill(yellow);
+  textSize(10);
+  text(frameRate, 25, 10);
+  text(objects.size(), 25, 30);
+}
+
+void gameClicks() {
+  mode = PAUSE;
+}
